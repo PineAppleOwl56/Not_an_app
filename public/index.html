@@ -3,6 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <title>Simple CRUD App</title>
+  <script>
+    async function fetchMessages() {
+      try {
+        const res = await fetch('/items');
+        const messages = await res.json();
+
+        const list = document.getElementById('messages');
+        list.innerHTML = ''; // Clear existing messages
+
+        messages.forEach(msg => {
+          const li = document.createElement('li');
+          li.textContent = msg.text;
+          list.appendChild(li);
+        });
+      } catch (err) {
+        console.error('Error loading messages:', err);
+      }
+    }
+
+    // Fetch messages when page loads
+    window.onload = fetchMessages;
+  </script>
 </head>
 <body>
   <h1>Post a Message</h1>
@@ -13,7 +35,7 @@
 
   <h2>Messages:</h2>
   <ul id="messages">
-    <!-- Messages will be injected here by server -->
+    <!-- Messages will be injected here -->
   </ul>
 </body>
 </html>
