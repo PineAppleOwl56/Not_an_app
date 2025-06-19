@@ -24,6 +24,33 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
+
+app.get('/prices', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/prices.html'));
+});
+
+app.get('/trainers', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/trainers.html'));
+});
+
+
+app.get('/locations', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/locations.html'));
+});
+
+app.get('/profile', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/profile.html'));
+});
+
+app.get('/error', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/error.html'));
+});
+
+
+
+
+
+
 // Get all messages
 app.get('/items', async (req, res) => {
   try {
