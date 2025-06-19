@@ -3,10 +3,64 @@
 <head>
   <meta charset="UTF-8">
   <title>Simple CRUD App</title>
+  <script>
+    async function fetchMessages() {
+      const res = await fetch('/items');
+      const messages = await res.json();
+      const list = document.getElementById('messages');
+      list.innerHTML = '';
+
+      messages.forEach(msg => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <strong>${msg.subject}</strong><br>
+          ${msg.body}<br>
+          <button onclick="deleteMessage(${msg.id})">Delete</button>
+          <button onclick="editMessage(${msg.id}, '${msg.subject}', '${msg.body}')">Edit</button>
+        `;
+        list.appendChild(li);
+      });
+    }
+
+    async function createMessage(e) {
+      e.preventDefault();
+      const subject = document.querySelector('[name=subject]').value;
+      const body = document.querySelector('[name=body]').value;
+
+      await fetch('/items', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ subject, body })
+      });
+
+      document.getElementById('form').reset();
+      fetchMessages();
+    }
+
+    async function deleteMessage(id) {
+      await fetch(`/items/${id}`, { method: 'DELETE' });
+      fetchMessages();
+    }
+
+    function editMessage(id, subject, body) {
+      const newSubject = prompt('New subject:', subject);
+      const newBody = prompt('New body:', body);
+
+      if (newSubject !== null && newBody !== null) {
+        fetch(`/items/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ subject: newSubject, body: newBody })
+        }).then(fetchMessages);
+      }
+    }
+
+    window.onload = fetchMessages;
+  </script>
 </head>
 <body>
   <h1>Create a Post</h1>
-  <form action="/posts" method="POST">
+  <form id="form" onsubmit="createMessage(event)">
     <input type="text" name="subject" placeholder="Subject" required><br>
     <textarea name="body" placeholder="Body" required></textarea><br>
     <button type="submit">Submit</button>
@@ -14,7 +68,7 @@
 
   <h2>Messages:</h2>
   <ul id="messages">
-    <!-- Messages will be injected here by server -->
+    <!-- Messages will be injected here -->
   </ul>
 </body>
 </html>
