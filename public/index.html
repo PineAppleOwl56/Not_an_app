@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Simple CRUD App</title>
+</head>
+<body>
+  <h1>Post a Message</h1>
+  <form action="/items" method="POST">
+    <input type="text" name="text" required />
+    <button type="submit">Submit</button>
+  </form>
+
+  <h2>Messages:</h2>
+  <ul id="messages">
+    <!-- Messages will be injected here by server -->
+  </ul>
+</body>
+</html>
