@@ -2,18 +2,19 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Simple CRUD App</title>
+  <title>Simple Post App</title>
 </head>
 <body>
-  <h1>Post a Message</h1>
-  <form action="/items" method="POST">
-    <input type="text" name="text" required />
+  <h1>Create a Post</h1>
+  <form action="/posts" method="POST">
+    <input type="text" name="subject" placeholder="Subject" required><br>
+    <textarea name="body" placeholder="Body" required></textarea><br>
     <button type="submit">Submit</button>
   </form>
 
-  <h2>Messages:</h2>
-  <ul id="messages">
-    <!-- Messages will be injected here by server -->
+  <h2>All Posts</h2>
+  <ul>
+    {{POSTS}}
   </ul>
 </body>
 </html>
