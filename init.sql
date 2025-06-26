@@ -1,7 +1,3 @@
-CREATE DATABASE mydatabase;
-
-\connect mydatabase;
-
 CREATE TABLE messages (
   id SERIAL PRIMARY KEY,
   subject TEXT NOT NULL,
