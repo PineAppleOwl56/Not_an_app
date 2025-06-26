@@ -5,14 +5,14 @@ const { Pool } = require('pg');
 const app = express();
 const port = 3000;
 
-// PostgreSQL connection config
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'devops',
-  password: 'nope',
-  port: 5432,
+  user: process.env.DB_USER || 'postgres',
+  host: process.env.DB_HOST || 'localhost',
+  database: process.env.DB_NAME || 'mydatabase',
+  password: process.env.DB_PASSWORD || 'postgres',
+  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 5432,
 });
+
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
