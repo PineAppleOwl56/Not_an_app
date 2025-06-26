@@ -1,6 +1,6 @@
 FROM node:lts-alpine3.21
 WORKDIR /DEVOPS
-COPY package*json ./
+COPY package*.json ./
 RUN npm install
 COPY . .
 EXPOSE 3000
