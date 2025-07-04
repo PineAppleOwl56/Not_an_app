@@ -2,7 +2,10 @@ version: '3.8'
 
 services:
   app:
+    depends_on:
+      - db
     build: .
+    restart: unless-stopped
     ports:
       - "3000:3000"
     environment:
@@ -11,13 +14,12 @@ services:
       - DB_USER=postgres
       - DB_PASSWORD=postgres
       - DB_NAME=mydatabase
-    depends_on:
-      - db
+    
     
 
   db:
     image: postgres:15
-    restart: always
+    restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
