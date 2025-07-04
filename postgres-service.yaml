@@ -3,8 +3,9 @@ kind: Service
 metadata:
   name: db-nodeport
 spec:
+  type: ClusterIP
   selector:
-    app: db  # fixed indentation and spelling
+    app: postgres
   ports:
-    - port: 5432          # service port
-      targetPort: 5432    # container port
+    - port: 5432
+      targetPort: 5432
